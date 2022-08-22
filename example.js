@@ -19,10 +19,28 @@
 
 'use strict'; // https://www.w3schools.com/js/js_strict.asp
 
-const PARSER = require('./parser');
+import { ComponentParser, ComponentSerializer, strip, stripFormat } from './index.js';
 
-const json = PARSER.default.parse('&7[&c-&7] &3[&bMC-COMPONENTS&3]&b &fsurviv.fun', '&');
-const html = PARSER.default.render('&7[&c-&7] &3[&bMC-COMPONENTS&3]&b &fsurviv.fun', '&');
+const parser = new ComponentParser();
 
-console.log(JSON.stringify(json, null, 4));
-console.log(html);
+// raw strip
+console.log(strip('&l&7[&3PREFIX&l&7]&r &aThis is &5a &9really &cnice &amessage&7.', '&'));
+
+// strip with parser
+console.log(stripFormat(parser, '&l&7[&3PREFIX&l&7]&r &aThis is &5a &9really &cnice &amessage&7.'));
+
+// strip over parser
+console.log(parser.stripFormat('&l&7[&3PREFIX&l&7]&r &aThis is &5a &9really &cnice &amessage&7.'));
+
+const serializer = new ComponentSerializer('&l&7[&3PREFIX&l&7]&r &aThis is &5a &9really &cnice &amessage&7.');
+
+console.log(serializer.plain());
+console.log(serializer.serialized());
+console.log(serializer.json());
+console.log(serializer.toJsonObject());
+
+console.log(serializer.html());
+
+console.log(serializer.toHtmlEntity());
+
+document.body.append(serializer.toHtmlEntity());

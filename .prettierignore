@@ -2,3 +2,4 @@ extra/
 node_modules/
 .vscode/
 package-*
+/**/*.min.css

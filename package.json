@@ -2,7 +2,8 @@
     "name": "minecraft-components",
     "version": "1.0.0",
     "description": "",
-    "main": "parser.js",
+    "main": "index.js",
+    "type": "module",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "prettier": "npx prettier --write .",
@@ -21,7 +22,6 @@
     },
     "homepage": "https://github.com/surviv-fun/minecraft-components#readme",
     "devDependencies": {
-        "eslint": "^8.22.0",
         "license-check-and-add": "^4.0.5",
         "prettier": "^2.7.1"
     }
