@@ -37,10 +37,20 @@ const serializer = new ComponentSerializer('&l&7[&3PREFIX&l&7]&r &aThis is &5a &
 console.log(serializer.plain());
 console.log(serializer.serialized());
 console.log(serializer.json());
+console.log(JSON.stringify(serializer.toJsonObject(), null, 1));
 console.log(serializer.toJsonObject());
 
 console.log(serializer.html());
 
 console.log(serializer.toHtmlEntity());
+console.log(serializer.component());
 
 document.body.append(serializer.toHtmlEntity());
+
+(async () => {
+    const response = await fetch('https://api.surviv.fun/ping');
+    const pingData = await response.json();
+    const description = pingData.ping.description;
+    console.log(description);
+    document.body.append(ComponentSerializer.fromJsonData(description).toHtmlEntity());
+})();
