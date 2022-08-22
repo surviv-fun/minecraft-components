@@ -45,12 +45,33 @@ console.log(serializer.html());
 console.log(serializer.toHtmlEntity());
 console.log(serializer.component());
 
-document.body.append(serializer.toHtmlEntity());
+// document.body.append(serializer.toHtmlEntity());
 
-(async () => {
+var updatePending = false;
+const updateInfo = async () => {
+    if (updatePending) return;
+    updatePending = true;
     const response = await fetch('https://api.surviv.fun/ping');
     const pingData = await response.json();
+
     const description = pingData.ping.description;
-    console.log(description);
-    document.body.append(ComponentSerializer.fromJsonData(description).toHtmlEntity());
-})();
+
+    const _server = new ComponentSerializer('&7Minecraft Server');
+    const _motd = ComponentSerializer.fromJsonData(description);
+
+    const server = document.querySelector('#server');
+    const motd = document.querySelector('#motd');
+    const players = document.querySelector('#players');
+
+    server.innerHTML = _server.html();
+    motd.innerHTML = _motd.html();
+
+    players.innerHTML = pingData.ping.players.sample.map((p) => new ComponentSerializer('&7' + p.name).html()).join(', ');
+    updatePending = false;
+};
+
+updateInfo();
+const update = document.querySelector('#update');
+update.onclick = updateInfo;
+
+setInterval(updateInfo, 1000 * 15);
