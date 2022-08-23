@@ -1,4 +1,4 @@
-# minecraft-components
+# minecraft-components - [View on NPMJS](https://www.npmjs.com/package/minecraft-components)
 
 ## A module to handle minecraft components as json and as text in a browser or nodejs application
 
